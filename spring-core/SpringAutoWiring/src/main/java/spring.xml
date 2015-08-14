@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="triangle" class="org.javabrains.karthik.Triangle">
+		<property name="base" value="50" />
+		<property name="height" value="40" />
+	</bean>
+
+	<bean class="org.javabrains.karthik.Student" id="student"
+		autowire="byName">
+		<property name="name" value="karthik" />
+	</bean>
+
+	<bean class="org.javabrains.karthik.Employee" id="emp"
+		autowire="byType">
+		<property name="name" value="Karthik Chejerla" />
+	</bean>
+
+	<!-- <bean class="org.javabrains.karthik.Address" id="homeAddress">
+		<property name="doorNumber" value="404" />
+		<property name="buildingName" value="Ushodaya Residency" />
+		<property name="streetName" value="Doctor's enclave" />
+		<property name="locality" value="Pragati Nagar" />
+		<property name="pincode" value="500090" />
+	</bean> -->
+
+	<bean class="org.javabrains.karthik.Address" id="workAddress">
+		<property name="doorNumber" value="0" />
+		<property name="buildingName" value="Synergy Park" />
+		<property name="streetName" value="Professor C R Rao Road" />
+		<property name="locality" value="Gacchibowli" />
+		<property name="pincode" value="500019" />
+	</bean>
+
+
+</beans>

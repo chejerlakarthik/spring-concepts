@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="org.javabrains.test.annotation">
+	</context:component-scan>
+
+	<util:map id="employeeNamesByEmployeeId" map-class="java.util.HashMap">
+		<entry key="539471">
+			<value>Chejerla Karthik</value>
+		</entry>
+		<entry key="540854">
+			<value>Aarthi Sundar</value>
+		</entry>
+	</util:map>
+
+	<util:properties id="studentNamesByRollNumber">
+		<prop key="854">Aarthi</prop>
+		<prop key="471">Karthik</prop>
+	</util:properties>
+
+	<util:set id="setOfStateCapitalCities">
+		<value>Hyderabad</value>
+		<value>Chennai</value>
+		<value>Hyderabad</value>
+		<value>Mumbai</value>
+		<value>New Delhi</value>
+	</util:set>
+
+	<util:list id="listOfIplTeams">
+		<value>Chennai Super Kings</value>
+		<value>Mumbai Indians</value>
+		<value>Royal Challengers Bangalore</value>
+		<value>Rajasthan Royals</value>
+	</util:list>
+
+</beans>

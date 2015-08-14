@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<bean id="rectangle" class="org.javabrains.test.xml.Rectangle">
+		<property name="dimensionOne" value="100" />
+		<property name="dimensionTwo" value="50" />
+	</bean>
+
+	<bean id="triangle" class="org.javabrains.test.xml.Triangle">
+		<property name="base" value="50" />
+		<property name="height" value="30" />
+	</bean>
+
+</beans>
