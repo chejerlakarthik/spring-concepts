@@ -1,4 +1,4 @@
-package com.karthik;
+package com.karthik.java.annotation.config;
 
 public class Greeting {
 

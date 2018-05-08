@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.karthik;
+package com.karthik.java.annotation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

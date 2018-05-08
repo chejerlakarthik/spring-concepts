@@ -1,4 +1,4 @@
-package com.karthik;
+package com.karthik.java.annotation.config;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
