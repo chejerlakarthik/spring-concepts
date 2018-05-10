@@ -13,6 +13,10 @@ public class RunnerClass {
 			Shape shape = (Shape) context.getBean("triangle");
 			shape.draw(i);
 		}
+		
+		Semester semester = (Semester) context.getBean(Semester.class);
+		System.out.println(semester);
+		
 		context.close();
 	}
 }
