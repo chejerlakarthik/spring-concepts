@@ -17,6 +17,9 @@ public class RunnerClass {
 		Semester semester = (Semester) context.getBean(Semester.class);
 		System.out.println(semester);
 		
+		Circle circle = (Circle) context.getBean("circle");
+		circle.draw(1);
+		
 		context.close();
 	}
 }

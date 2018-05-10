@@ -8,6 +8,18 @@
 
 	<context:annotation-config />
 
+	<!-- The below line will give an error because required property center 
+		has not been set.So, inject the center property -->
+	<!-- <bean id="circle" class="com.karthik.Circle" /> -->
+	<bean id="circle" class="com.karthik.Circle">
+		<property name="center" ref="centerPoint" />
+	</bean>
+
+	<bean id="centerPoint" class="com.karthik.Point">
+		<property name="x" value="0" />
+		<property name="y" value="0" />
+	</bean>
+
 	<bean id="triangle" class="com.karthik.Triangle" scope="prototype"
 		init-method="init" />
 	<bean id="semester" class="com.karthik.Semester">
@@ -25,11 +37,12 @@
 	<bean class="com.karthik.DestoyPrototypeBeansPostProcessor" />
 
 	<bean class="com.karthik.PropertyLoaderPostProcessor" />
-	<!-- Another way os specifying the property file location is context:proper-placeholder tag -->
-	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="test.properties" />
-	</bean> -->
-	
-	<context:property-placeholder location="test.properties" />
+	<!-- Another way os specifying the property file location is context:proper-placeholder 
+		tag -->
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations" value="test.properties" /> </bean> -->
+
+	<context:property-placeholder
+		location="test.properties" />
 
 </beans>
