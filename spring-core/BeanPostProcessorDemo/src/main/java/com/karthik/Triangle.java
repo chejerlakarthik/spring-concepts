@@ -5,8 +5,8 @@ import javax.annotation.PreDestroy;
 
 public class Triangle implements Shape{
 
-	public void draw(int i) {
-		System.out.println("Drawing Triangle-" + String.valueOf(i));
+	public void draw() {
+		System.out.println("Drawing Triangle ");
 	}
 	
 	public void init() {

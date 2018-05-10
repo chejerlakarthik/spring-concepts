@@ -11,14 +11,17 @@ public class RunnerClass {
 		
 		for(int i=0; i<10; i++) {
 			Shape shape = (Shape) context.getBean("triangle");
-			shape.draw(i);
+			shape.draw();
 		}
 		
 		Semester semester = (Semester) context.getBean(Semester.class);
 		System.out.println(semester);
 		
 		Circle circle = (Circle) context.getBean("circle");
-		circle.draw(1);
+		circle.draw();
+		
+		Line line = (Line) context.getBean("line");
+		line.draw();
 		
 		context.close();
 	}

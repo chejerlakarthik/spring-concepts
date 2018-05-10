@@ -7,6 +7,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
+	<context:component-scan
+		base-package="com.karthik" />
 
 	<!-- The below line will give an error because required property center 
 		has not been set.So, inject the center property -->
@@ -37,7 +39,7 @@
 	<bean class="com.karthik.DestoyPrototypeBeansPostProcessor" />
 
 	<bean class="com.karthik.PropertyLoaderPostProcessor" />
-	<!-- Another way os specifying the property file location is context:proper-placeholder 
+	<!-- Another way of specifying the property file location is context:proper-placeholder 
 		tag -->
 	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
 		<property name="locations" value="test.properties" /> </bean> -->

@@ -7,7 +7,7 @@ public class Circle implements Shape {
 	private Point center;
 	private Integer radius;
 	
-	public void draw(int i) {
+	public void draw() {
 		System.out.println("Drawing a circle...");
 	}
 
