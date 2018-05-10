@@ -25,8 +25,11 @@
 	<bean class="com.karthik.DestoyPrototypeBeansPostProcessor" />
 
 	<bean class="com.karthik.PropertyLoaderPostProcessor" />
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<!-- Another way os specifying the property file location is context:proper-placeholder tag -->
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations" value="test.properties" />
-	</bean>
+	</bean> -->
+	
+	<context:property-placeholder location="test.properties" />
 
 </beans>
