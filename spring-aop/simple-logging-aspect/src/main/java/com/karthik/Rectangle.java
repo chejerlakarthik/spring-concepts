@@ -34,14 +34,12 @@ public class Rectangle implements Shape {
 		return "Rectangle [length=" + length + ", breadth=" + breadth + "]";
 	}
 
-	@Override
-	public double getArea(double[] inputs) {
+	public Double getArea(Double[] inputs) {
 		assert inputs.length==2;
 		return inputs[0]*inputs[1];
 	}
 
-	@Override
-	public double getPerimeter(double[] inputs) {
+	public Double getPerimeter(Double[] inputs) {
 		assert inputs.length==2;
 		return 2 * (inputs[0] + inputs[1]);
 	}

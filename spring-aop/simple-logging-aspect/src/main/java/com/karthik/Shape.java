@@ -2,8 +2,8 @@ package com.karthik;
 
 public interface Shape {
 
-	public double getArea(double[] inputs);
+	public Double getArea(Double[] inputs);
 	
-	public double getPerimeter(double[] inputs);
+	public Double getPerimeter(Double[] inputs);
 	
 }

@@ -16,8 +16,7 @@ public class Circle implements Shape{
 		this.radius = radius;
 	}
 	
-	@Override
-	public double getArea(double[] inputs){
+	public Double getArea(Double[] inputs){
 		assert inputs.length==1;
 		if (inputs[0] < 10.0){
 			throw new IllegalArgumentException("Radius should be > 10.0");
@@ -26,8 +25,7 @@ public class Circle implements Shape{
 		return area;
 	}
 
-	@Override
-	public double getPerimeter(double[] inputs) {
+	public Double getPerimeter(Double[] inputs) {
 		assert inputs.length==1;
 		return 2 * Math.PI * inputs[0];
 	}
