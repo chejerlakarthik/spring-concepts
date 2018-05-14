@@ -1,5 +1,7 @@
 package com.karthik.model;
 
+import com.karthik.aspect.LogAround;
+
 public class Circle implements Shape{
 	
 	private double radius;
@@ -25,6 +27,7 @@ public class Circle implements Shape{
 		return area;
 	}
 
+	@LogAround
 	public Double getPerimeter(Double[] inputs) {
 		assert inputs.length==1;
 		return 2 * Math.PI * inputs[0];

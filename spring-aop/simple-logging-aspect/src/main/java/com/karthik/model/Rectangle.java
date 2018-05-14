@@ -1,5 +1,7 @@
 package com.karthik.model;
 
+import com.karthik.aspect.LogAround;
+
 public class Rectangle implements Shape {
 
 	private double length;
@@ -39,6 +41,7 @@ public class Rectangle implements Shape {
 		return inputs[0]*inputs[1];
 	}
 
+	@LogAround
 	public Double getPerimeter(Double[] inputs) {
 		assert inputs.length==2;
 		return 2 * (inputs[0] + inputs[1]);

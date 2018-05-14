@@ -38,17 +38,15 @@ public class LoggingAspect {
 		System.out.println("Invalid argument(s) passed: " + ex.getMessage());
 	}
 
-	@Around(value = "execution(Double com.karthik.model.*.getPerimeter(..))")
+	@Around("@annotation(com.karthik.aspect.LogAround)")
 	public Double getPerimeterAdvice(ProceedingJoinPoint proceedingJoinPoint) {
 		Double returnValue = 0.0;
 		try {
-			System.out.println("Entering method: " + getMethodName(proceedingJoinPoint));
 			returnValue = (Double) proceedingJoinPoint.proceed();
 			System.out.println("Perimeter of the shape is "+ returnValue);
 		} catch (Throwable ex) {
 			System.out.println("Around: Exception - " + ex.getMessage());
 		}
-		System.out.println("Exiting method: " + getMethodName(proceedingJoinPoint));
 		return returnValue;
 	}
 
