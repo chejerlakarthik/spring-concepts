@@ -2,6 +2,8 @@ package com.karthik;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.karthik.model.Shape;
+
 
 public class AspectMain 
 {

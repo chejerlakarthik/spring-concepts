@@ -4,6 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import com.karthik.aspect.LoggingAspect;
+import com.karthik.model.Circle;
+import com.karthik.model.Rectangle;
+import com.karthik.model.Shape;
+
 @Configuration
 @EnableAspectJAutoProxy
 public class SpringConfiguration {

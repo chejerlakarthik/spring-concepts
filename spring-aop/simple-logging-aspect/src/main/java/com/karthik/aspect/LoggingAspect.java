@@ -1,4 +1,4 @@
-package com.karthik;
+package com.karthik.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,32 +13,32 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class LoggingAspect {
 
-	@Pointcut("execution(public Double com.karthik.Circle.getArea(..))")
-	public void allCircleMethods() {
+	@Pointcut("execution(public Double com.karthik.model.*.*(..))")
+	public void allMethods() {
 	}
 
-	@Before("allCircleMethods())")
+	@Before("allMethods())")
 	public void beforeAdviceForAllMethods(JoinPoint joinPoint) {
 		System.out.println("Entering method: " + getMethodName(joinPoint));
 	}
 
-	@After("allCircleMethods())")
+	@After("allMethods())")
 	public void afterAdviceForAllMethods(JoinPoint joinPoint) {
 		System.out.println("Exiting method: " + getMethodName(joinPoint));
 	}
 
-	@AfterReturning(pointcut = "execution(Double com.karthik.*.getArea(..))", returning = "area")
+	@AfterReturning(pointcut = "execution(Double com.karthik.model.*.getArea(..))", returning = "area")
 	public void getAreaAdvice(Double area) {
 		System.out.println("Calculated area is: " + area);
 	}
 
 	// Spring will call appropriate advice depending on thrown exception
-	@AfterThrowing(pointcut = "execution(Double com.karthik.*.getArea(..))", throwing = "ex")
+	@AfterThrowing(pointcut = "execution(Double com.karthik.model.*.getArea(..))", throwing = "ex")
 	public void getAreaIllegalArgumentExceptionAdvice(IllegalArgumentException ex) {
 		System.out.println("Invalid argument(s) passed: " + ex.getMessage());
 	}
 
-	@Around(value = "execution(Double com.karthik.*.getPerimeter(..))")
+	@Around(value = "execution(Double com.karthik.model.*.getPerimeter(..))")
 	public Double getPerimeterAdvice(ProceedingJoinPoint proceedingJoinPoint) {
 		Double returnValue = 0.0;
 		try {
@@ -52,7 +52,13 @@ public class LoggingAspect {
 		return returnValue;
 	}
 
+	/**
+	 * Return the fully qualified method name to go into the logs.
+	 * @param joinPoint
+	 * @return
+	 */
 	protected String getMethodName(JoinPoint joinPoint) {
-		return joinPoint.getSignature().toLongString();
+		return String.format("%s.%s()", joinPoint.getTarget().getClass().getName(), 
+										joinPoint.getSignature().getName());
 	}
 }

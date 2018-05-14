@@ -1,4 +1,4 @@
-package com.karthik;
+package com.karthik.model;
 
 public class Rectangle implements Shape {
 
