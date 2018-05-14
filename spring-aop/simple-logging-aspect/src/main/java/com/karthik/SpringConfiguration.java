@@ -9,8 +9,13 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class SpringConfiguration {
 	
 	@Bean("circle")
-	public Circle circle(){
+	public Shape circle(){
 		return new Circle(5.0);
+	}
+	
+	@Bean("rectangle")
+	public Shape rectangle(){
+		return new Rectangle();
 	}
 
 	@Bean

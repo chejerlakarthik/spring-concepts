@@ -1,6 +1,6 @@
 package com.karthik;
 
-public class Circle {
+public class Circle implements Shape{
 	
 	private double radius;
 	
@@ -15,18 +15,21 @@ public class Circle {
 	public void setRadius(double radius) {
 		this.radius = radius;
 	}
-
-	@Override
-	public String toString() {
-		return "Circle [radius=" + radius + "]";
-	}
 	
-	public double getArea(double radius){
-		if (radius < 10.0){
+	@Override
+	public double getArea(double[] inputs){
+		assert inputs.length==1;
+		if (inputs[0] < 10.0){
 			throw new IllegalArgumentException("Radius should be > 10.0");
 		}
 		double area = Math.PI * Math.pow(radius,2);
 		return area;
+	}
+
+	@Override
+	public double getPerimeter(double[] inputs) {
+		assert inputs.length==1;
+		return 2 * Math.PI * inputs[0];
 	}
 
 }
