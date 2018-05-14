@@ -28,14 +28,14 @@ public class AspectMain
        // Circle - Perimeter
        circle.getPerimeter(dimensions);
        
-//		dimensions = getDimensions();
-//		dimensions[0] = 5.0; // Test that an exception is thrown
-//		
-//		try {
-//			circle.getArea(dimensions);
-//		} catch (IllegalArgumentException ex) {
-//			System.out.println("Illegal Argument Exception caught");
-//		}
+		dimensions = getDimensions();
+		dimensions[0] = 5.0; // Test that an exception is thrown
+		
+		try {
+			circle.getArea(dimensions);
+		} catch (IllegalArgumentException ex) {
+			System.out.println("Illegal Argument Exception caught");
+		}
        
        ctx.close();
     }
