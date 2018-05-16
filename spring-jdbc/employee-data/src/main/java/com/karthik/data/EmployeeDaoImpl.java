@@ -60,6 +60,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				employees.add(emp);
 			}
 			
+			resultSet.close();
+			ps.close();
+			connection.close();
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
