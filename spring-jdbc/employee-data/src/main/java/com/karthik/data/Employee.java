@@ -5,6 +5,12 @@ public class Employee {
 	private Integer employeeId;
 	private String employeeName;
 	
+	public Employee() {}
+	
+	public Employee(Integer employeeId, String employeeName) {
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+	}
 	public Integer getEmployeeId() {
 		return employeeId;
 	}

@@ -8,10 +8,10 @@ public interface EmployeeDao {
 	
 	Employee getEmployee(Integer employeeId);
 	
-	void addEmployee(Employee employee);
+	int addEmployee(Employee employee);
 	
-	void deleteEmployee(Integer employeeId);
+	int deleteEmployee(Integer employeeId);
 	
-	void updateEmployee(Integer employeeId, Employee employee);
+	int updateEmployee(Integer employeeId, Employee employee);
 
 }
