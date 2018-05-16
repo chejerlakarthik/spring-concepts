@@ -1,4 +1,4 @@
-package com.karthik.data;
+package com.karthik.data.model;
 
 import java.util.List;
 

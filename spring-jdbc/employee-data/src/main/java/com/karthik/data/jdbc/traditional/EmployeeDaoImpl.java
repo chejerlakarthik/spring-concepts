@@ -1,4 +1,4 @@
-package com.karthik.data;
+package com.karthik.data.jdbc.traditional;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.karthik.data.model.Employee;
+import com.karthik.data.model.EmployeeDao;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 	

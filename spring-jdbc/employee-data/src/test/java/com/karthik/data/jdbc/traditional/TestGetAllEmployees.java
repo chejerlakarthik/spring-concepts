@@ -1,18 +1,16 @@
-package com.karthik.data;
+package com.karthik.data.jdbc.traditional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
+import com.karthik.data.jdbc.traditional.EmployeeDaoImpl;
+import com.karthik.data.model.Employee;
+import com.karthik.data.model.EmployeeDao;
+
 public class TestGetAllEmployees {
-	
-	@Before
-	public void setUp() {
-		
-	}
 
 	@Test
 	public void testAllEmployees() {
