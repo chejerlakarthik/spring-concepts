@@ -6,10 +6,12 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.karthik.data.hibernate.dao.EmployeeDao;
 import com.karthik.data.hibernate.model.Employee;
 
+@Transactional
 public class EmployeeDaoImpl implements EmployeeDao{
 	
 	private SessionFactory sessionFactory;
@@ -26,41 +28,48 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		this.sessionFactory = sessionFactory;
 	}
 
+	protected Session getSession() {
+		return getSessionFactory().getCurrentSession();
+	}
+	
 	@Override
 	public List<Employee> getAllEmployees() {
-		Session session = sessionFactory.openSession();
-
 		// Obtain criteria builder and subsequently, criteria query from it
-		CriteriaQuery<Employee> criteria = session.getCriteriaBuilder().createQuery(Employee.class);
-
+		CriteriaQuery<Employee> criteria = getSession().getCriteriaBuilder().createQuery(Employee.class);
 		// Specify criteria root
 		criteria.from(Employee.class);
-
 		// Execute the criteria query with the session
-		List<Employee> employees = session.createQuery(criteria).getResultList();
-
+		List<Employee> employees = getSession().createQuery(criteria).getResultList();
 		return employees;
 	}
 
 	@Override
 	public Employee getEmployee(Integer employeeId) {
-		// TODO Auto-generated method stub
-		return null;
+		return getSession().get(Employee.class, employeeId);
 	}
 
 	@Override
-	public void addEmployee(Employee employee) {
+	public Integer addEmployee(Employee employee) {
 		Session session = sessionFactory.openSession();
-		session.save(employee);
+		Integer id = (Integer) session.save(employee);
+		return id;
 	}
 
 	@Override
 	public void updateEmployee(Integer employeeId, Employee employee) {
-		Session session = sessionFactory.openSession();
-		Employee searchEmployee = session.find(Employee.class, employeeId);
+		Employee searchEmployee = getSession().find(Employee.class, employeeId);
 		if(null != searchEmployee) {
-			session.save(employee);
+			Employee emp = new Employee();
+			emp.setEmployeeId(employeeId);
+			emp.setEmployeeName(employee.getEmployeeName());
+			getSession().flush();
 		}
+	}
+
+	@Override
+	public void deleteEmployee(Integer employeeId) {
+		Employee toDelete = getSession().byId(Employee.class).load(employeeId);
+		getSession().delete(toDelete);
 	}
 
 }

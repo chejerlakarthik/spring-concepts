@@ -6,7 +6,7 @@ import com.karthik.data.hibernate.dao.EmployeeDao;
 import com.karthik.data.hibernate.model.Employee;
 import com.karthik.data.hibernate.service.EmployeeService;
 
-public class EmployeeServiceImpl  implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService{
 
 	private EmployeeDao employeeDao;
 	
@@ -29,8 +29,18 @@ public class EmployeeServiceImpl  implements EmployeeService{
 	}
 
 	@Override
-	public void addEmployee(Employee employee) {
-		this.employeeDao.addEmployee(employee);
+	public Integer addEmployee(Employee employee) {
+		return this.employeeDao.addEmployee(employee);
+	}
+
+	@Override
+	public void updateEmployee(Integer employeeId, Employee employee) {
+		this.employeeDao.updateEmployee(employeeId, employee);
+	}
+
+	@Override
+	public void deleteEmployee(Integer employeeId) {
+		this.employeeDao.deleteEmployee(employeeId);
 	}
 
 }

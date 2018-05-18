@@ -34,6 +34,12 @@
 		</property>
 	</bean>
 	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
 	<!-- This bean can also be registered with spring by using annotation @Repository on top
 	     of the class and have its package scanned by spring by using context:component-scan
 	     tag in spring.xml -->
