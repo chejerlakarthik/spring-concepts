@@ -1,0 +1,1 @@
+create table dbo.employee( emp_id integer PRIMARY KEY, emp_name varchar(50));
