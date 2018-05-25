@@ -3,7 +3,7 @@ package com.karthik.data.hibernate.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericDao<T> {
+public interface GenericDao<T,K> {
 	
 	List<T> getAll();
 	
@@ -15,6 +15,6 @@ public interface GenericDao<T> {
 	
 	void delete(T entity);
 	
-	void deleteById(Serializable id);
+	void deleteById(K id);
 
 }

@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 
 import com.karthik.data.hibernate.dao.GenericDao;
 
-public class GenericDaoImpl<T> implements GenericDao<T> {
+public class GenericDaoImpl<T,K> implements GenericDao<T,K> {
 
 	private Class<T> type;
 	private SessionFactory sessionFactory;
@@ -72,7 +72,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 	}
 
 	@Override
-	public void deleteById(Serializable id) {
+	public void deleteById(K id) {
 		T entity = getSession().find(type, id);
 		if (null != entity) {
 			delete(entity);

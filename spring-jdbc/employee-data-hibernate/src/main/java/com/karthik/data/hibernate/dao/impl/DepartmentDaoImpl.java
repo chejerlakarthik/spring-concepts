@@ -14,7 +14,7 @@ import com.karthik.data.hibernate.dao.DepartmentDao;
 import com.karthik.data.hibernate.model.Department;
 
 @Transactional
-public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements DepartmentDao {
+public class DepartmentDaoImpl extends GenericDaoImpl<Department,Integer> implements DepartmentDao {
 
 	public DepartmentDaoImpl() {
 		super(Department.class);

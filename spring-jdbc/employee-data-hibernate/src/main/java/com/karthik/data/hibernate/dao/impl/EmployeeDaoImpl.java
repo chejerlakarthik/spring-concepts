@@ -10,7 +10,7 @@ import com.karthik.data.hibernate.dao.EmployeeDao;
 import com.karthik.data.hibernate.model.Employee;
 
 @Transactional
-public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements EmployeeDao{
+public class EmployeeDaoImpl extends GenericDaoImpl<Employee, Integer> implements EmployeeDao{
 
 	public EmployeeDaoImpl() {
 		super(Employee.class);

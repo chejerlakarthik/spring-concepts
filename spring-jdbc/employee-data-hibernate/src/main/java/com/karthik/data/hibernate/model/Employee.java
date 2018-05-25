@@ -33,7 +33,7 @@ public class Employee {
 	@Column(name="EMP_EMPLOYER")
 	private Employer employer;
 	
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "DEPARTMENT_ID")
 	private Department department;
 	

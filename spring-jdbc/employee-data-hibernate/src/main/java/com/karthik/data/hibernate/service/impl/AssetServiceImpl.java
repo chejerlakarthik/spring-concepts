@@ -39,13 +39,13 @@ public class AssetServiceImpl implements AssetService {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		this.assetDao.deleteById(id);
+	public void update(Asset entity) {
+		this.assetDao.update(entity);
 	}
 
 	@Override
-	public void update(Asset entity) {
-		this.assetDao.update(entity);
+	public void deleteById(Long id) {
+		this.assetDao.deleteById(id);
 	}
 
 }

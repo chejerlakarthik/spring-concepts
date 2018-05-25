@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface ApplicationService<T> {
+public interface ApplicationService<T,PK> {
 	
 	List<T> getAll();
 	
@@ -15,7 +15,7 @@ public interface ApplicationService<T> {
 	
 	void delete(T entity);
 	
-	void deleteById(Integer id);
+	void deleteById(PK id);
 	
 	void update(T entity);
 
