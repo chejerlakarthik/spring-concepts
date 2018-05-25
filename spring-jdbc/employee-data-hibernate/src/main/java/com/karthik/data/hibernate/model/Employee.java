@@ -8,12 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -44,10 +42,7 @@ public class Employee {
 	@Column(name="CUBICLE_ID")
 	private Long cubicle;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinTable(name="EMPLOYEE_ASSETS",
-			   joinColumns=@JoinColumn(name="EMP_ID"),
-			   inverseJoinColumns=@JoinColumn(name="ASSET_ID"))
+	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
 	private Collection<Asset> assets = new HashSet<Asset>();
 
 	public Employee() {}
