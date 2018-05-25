@@ -1,19 +1,12 @@
 package com.karthik.data.hibernate.service;
 
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.karthik.data.hibernate.model.Employee;
 
-public interface EmployeeService {
+@Transactional
+public interface EmployeeService extends ApplicationService<Employee>{
 	
-	List<Employee> getAllEmployees();
-	
-	Employee getEmployee(Integer employeeId);
-	
-	Integer addEmployee(Employee employee);
-	
-	void updateEmployee(Integer employeeId, Employee employee);
-	
-	void deleteEmployee(Integer employeeId);
+	Employee findByName(String employeeName);
 
 }

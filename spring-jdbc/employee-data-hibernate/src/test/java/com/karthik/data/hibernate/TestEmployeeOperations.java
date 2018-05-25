@@ -10,7 +10,9 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.karthik.data.hibernate.model.Department;
 import com.karthik.data.hibernate.model.Employee;
+import com.karthik.data.hibernate.model.Employer;
 import com.karthik.data.hibernate.service.EmployeeService;
 
 public class TestEmployeeOperations {
@@ -31,32 +33,38 @@ public class TestEmployeeOperations {
 	}
 
 	@Test
+	public void testAddEmployee() {
+		Employee emp = new Employee(5, "Rohit Sharma", Employer.ORACLE);
+		emp.setDepartment(new Department("HKP", "Housekeeping"));
+		emp.setCubicle(5001L);
+		emp.setSalary(50000.00);
+		service.add(emp);
+	}
+	
+	@Test
 	public void testGetAllEmployees() {
-		List<Employee> employees = service.getAllEmployees();
+		List<Employee> employees = service.getAll();
 		
-		assertThat(employees.size()).isGreaterThan(2);	
+		assertThat(employees.size()).isGreaterThan(0);	
 	}
 	
 	@Test
 	public void testGetEmployee() {
-		Employee employee = service.getEmployee(1);
+		Employee employee = service.get(1);
 		
-		assertThat(employee.getEmployeeName()).contains("Virat");
-	}
-	
-	@Test
-	public void testAddEmployee() {
-		service.addEmployee(new Employee(5, "Rohit Sharma"));
+		assertThat(employee.getEmployeeName()).isNotBlank();
 	}
 	
 	@Test
 	public void testUpdateEmployee() {
-		service.updateEmployee(2, new Employee(2, "Aarthi Sundar"));
+		Employee employee = service.get(18);
+		employee.setSalary(65000.00);
+		service.update(employee);
 	}
 	
 	@Test
 	public void testDeleteEmployee() {
-		service.deleteEmployee(8);
+		service.deleteById(3);
 	}
 
 }

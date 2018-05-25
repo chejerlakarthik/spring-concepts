@@ -10,9 +10,11 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.11.xsd">
-	
-	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
-	<context:property-placeholder location="classpath:hibernate.properties" ignore-unresolvable="true"/>
+
+	<context:property-placeholder
+		location="classpath:jdbc.properties" ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:hibernate.properties" ignore-unresolvable="true" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -22,33 +24,64 @@
 		<property name="password" value="${jdbc.password}" />
 		<property name="schema" value="${jdbc.schema}" />
 	</bean>
-	
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses" value="com.karthik.data.hibernate.model.Employee" />
+		<property name="annotatedClasses"
+			value="com.karthik.data.hibernate.model.Employee, 
+				   com.karthik.data.hibernate.model.Department,
+				   com.karthik.data.hibernate.model.Asset" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.default_catalog">${hibernate.default_catalog}</prop>
+				<prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
 			</props>
 		</property>
 	</bean>
-	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
-	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- This bean can also be registered with spring by using annotation @Repository 
+		on top of the class and have its package scanned by spring by using context:component-scan 
+		tag in spring.xml -->
+
+	<bean id="employeeDao"
+		class="com.karthik.data.hibernate.dao.impl.EmployeeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="departmentDao"
+		class="com.karthik.data.hibernate.dao.impl.DepartmentDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<!-- This bean can also be registered with spring by using annotation @Repository on top
-	     of the class and have its package scanned by spring by using context:component-scan
-	     tag in spring.xml -->
-	<bean id="employeeDao" class="com.karthik.data.hibernate.dao.impl.EmployeeDaoImpl">
-		<constructor-arg name="sessionFactory" ref="sessionFactory" />
+	<bean id="assetDao" class="com.karthik.data.hibernate.dao.impl.AssetDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="employeeService"
+		class="com.karthik.data.hibernate.service.impl.EmployeeServiceImpl">
+		<property name="employeeDao" ref="employeeDao" />
 	</bean>
 	
-	<bean id="employeeService" class="com.karthik.data.hibernate.service.impl.EmployeeServiceImpl">
-		<property name="employeeDao" ref="employeeDao" />
+	<bean id="departmentService"
+		class="com.karthik.data.hibernate.service.impl.DepartmentServiceImpl">
+		<property name="departmentDao" ref="departmentDao" />
+	</bean>
+	
+	<bean id="assetService"
+		class="com.karthik.data.hibernate.service.impl.AssetServiceImpl">
+		<property name="assetDao" ref="assetDao" />
 	</bean>
 
 </beans>

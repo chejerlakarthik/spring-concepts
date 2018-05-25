@@ -1,19 +1,9 @@
 package com.karthik.data.hibernate.dao;
 
-import java.util.List;
-
 import com.karthik.data.hibernate.model.Employee;
 
-public interface EmployeeDao {
+public interface EmployeeDao extends GenericDao<Employee> {
 	
-	List<Employee> getAllEmployees();
+	Employee findByName(String employeeName);
 	
-	Employee getEmployee(Integer employeeId);
-	
-	Integer addEmployee(Employee employee);
-	
-	void updateEmployee(Integer employeeId, Employee employee);
-	
-	void deleteEmployee(Integer employeeId);
-
 }
