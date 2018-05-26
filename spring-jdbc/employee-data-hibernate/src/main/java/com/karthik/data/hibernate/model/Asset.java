@@ -12,11 +12,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ASSETS")
 public class Asset {
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ASSET_ID")
-	private long assetId;
+	private Long id;
 	@Column(name="ASSET_TYPE")
 	private String assetType;
 	@ManyToOne
@@ -32,11 +32,11 @@ public class Asset {
 	}
 	
 	public long getAssetId() {
-		return assetId;
+		return id;
 	}
 
-	public void setAssetId(long assetId) {
-		this.assetId = assetId;
+	public void setAssetId(Long assetId) {
+		this.id = assetId;
 	}
 
 	public String getAssetType() {
@@ -57,6 +57,6 @@ public class Asset {
 
 	@Override
 	public String toString() {
-		return "Asset [assetId=" + assetId + ", assetType=" + assetType + ", employee=" + employee + "]";
+		return "Asset [assetId=" + id + ", assetType=" + assetType + ", employee=" + employee + "]";
 	}
 }

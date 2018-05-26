@@ -1,7 +1,7 @@
 package com.karthik.data.hibernate.service.impl;
 
-import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,42 +24,47 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public List<Department> getAll() {
-		return this.departmentDao.getAll();
+		return this.departmentDao.findAll();
 	}
 
 	@Override
 	public Department get(Integer id) {
-		return this.departmentDao.get(id);
+		return this.departmentDao.findById(id, true);
 	}
 
 	@Override
-	public Integer add(Department entity) {
-		return (Integer) this.departmentDao.add(entity);
+	public Department add(Department entity) {
+		return this.departmentDao.makePersistent(entity);
 	}
 
 	@Override
 	public void delete(Department entity) {
-		this.departmentDao.delete(entity);
+		this.departmentDao.makeTransient(entity);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.departmentDao.deleteById(id);
+		Department department = this.departmentDao.findById(id, true);
+		if (!Objects.isNull(department)) {
+			this.departmentDao.makeTransient(department);
+		}
 	}
 
 	@Override
 	public void update(Department entity) {
-		this.departmentDao.update(entity);
-	}
-
-	@Override
-	public List<Serializable> addDepartments(List<Department> departments) {
-		return this.departmentDao.addDepartments(departments);
+		this.departmentDao.makePersistent(entity);
 	}
 
 	@Override
 	public Department findByName(String employeeName) {
-		return this.departmentDao.findByName(employeeName);
+		Department dept = new Department("HR", "Human Resources");
+		dept.setDepartmentId(1);
+		return dept;
+	}
+
+	@Override
+	public void addDepartments(List<Department> departments) {
+		this.departmentDao.addList(departments);
 	}
 
 }

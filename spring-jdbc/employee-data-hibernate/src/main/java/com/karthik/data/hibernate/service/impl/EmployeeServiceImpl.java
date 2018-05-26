@@ -1,6 +1,7 @@
 package com.karthik.data.hibernate.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.karthik.data.hibernate.dao.EmployeeDao;
 import com.karthik.data.hibernate.model.Employee;
@@ -20,32 +21,35 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public List<Employee> getAll() {
-		return this.employeeDao.getAll();
+		return this.employeeDao.findAll();
 	}
 
 	@Override
 	public Employee get(Integer employeeId) {
-		return this.employeeDao.get(employeeId);
+		return this.employeeDao.findById(employeeId, true);
 	}
 
 	@Override
-	public Integer add(Employee employee) {
-		return (Integer) this.employeeDao.add(employee);
+	public Employee add(Employee employee) {
+		return this.employeeDao.makePersistent(employee);
 	}
 
 	@Override
 	public void update(Employee employee) {
-		this.employeeDao.update(employee);
+		this.employeeDao.makePersistent(employee);
 	}
 
 	@Override
 	public void deleteById(Integer employeeId) {
-		this.employeeDao.deleteById(employeeId);
+		Employee employee = this.employeeDao.findById(employeeId, true);
+		if (!Objects.isNull(employee)) {
+			this.employeeDao.makeTransient(employee);
+		}
 	}
 
 	@Override
 	public void delete(Employee entity) {
-		this.employeeDao.delete(entity);
+		this.employeeDao.makeTransient(entity);
 	}
 
 	@Override

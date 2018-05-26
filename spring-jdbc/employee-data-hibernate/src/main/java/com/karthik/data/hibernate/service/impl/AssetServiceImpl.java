@@ -1,6 +1,7 @@
 package com.karthik.data.hibernate.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.karthik.data.hibernate.dao.AssetDao;
 import com.karthik.data.hibernate.model.Asset;
@@ -20,32 +21,35 @@ public class AssetServiceImpl implements AssetService {
 
 	@Override
 	public List<Asset> getAll() {
-		return this.assetDao.getAll();
+		return this.assetDao.findAll();
 	}
 
 	@Override
-	public Asset get(Integer id) {
-		return this.assetDao.get(id);
+	public Asset get(Long id) {
+		return this.assetDao.findById(id, true);
 	}
 
 	@Override
-	public Integer add(Asset entity) {
-		return (Integer) this.assetDao.add(entity);
+	public Asset add(Asset entity) {
+		return this.assetDao.makePersistent(entity);
 	}
 
 	@Override
 	public void delete(Asset entity) {
-		this.assetDao.delete(entity);
+		this.assetDao.makeTransient(entity);
 	}
 
 	@Override
 	public void update(Asset entity) {
-		this.assetDao.update(entity);
+		this.assetDao.makePersistent(entity);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		this.assetDao.deleteById(id);
+		Asset asset = this.assetDao.findById(id, true);
+		if (!Objects.isNull(asset)) {
+			this.assetDao.makeTransient(asset);
+		}
 	}
 
 }

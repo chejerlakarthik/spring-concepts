@@ -5,26 +5,29 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.karthik.data.hibernate.dao.GenericDao;
 
-public class GenericDaoImpl<T,K> implements GenericDao<T,K> {
+public class GenericDaoImpl<T,PK extends Serializable> implements GenericDao<T,PK> {
 
-	private Class<T> type;
+	private Class<T> persistentClass;
 	private SessionFactory sessionFactory;
 	
-	public GenericDaoImpl(Class<T> type) {
-		this.type = type;
+	public GenericDaoImpl() {}
+	
+	public GenericDaoImpl(Class<T> persistentClass) {
+		this.persistentClass = persistentClass;
 	}
 
-	public Class<T> getType() {
-		return type;
+	public Class<T> getPersistentClass() {
+		return persistentClass;
 	}
 
-	public void setType(Class<T> type) {
-		this.type = type;
+	public void setPersistentClass(Class<T> persistentClass) {
+		this.persistentClass = persistentClass;
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -40,42 +43,50 @@ public class GenericDaoImpl<T,K> implements GenericDao<T,K> {
 	}
 
 	@Override
-	public List<T> getAll() {
+	public List<T> findAll() {
 		// Obtain criteria builder and subsequently, criteria query from it
-		CriteriaQuery<T> criteria = getSession().getCriteriaBuilder().createQuery(type);
+		CriteriaQuery<T> criteria = getSession().getCriteriaBuilder().createQuery(getPersistentClass());
 		// Specify criteria root
-		criteria.from(type);
+		criteria.from(getPersistentClass());
 		// Execute the criteria query with the session
-		List<T> listOfEntities = getSession().createQuery(criteria).getResultList();
-		return listOfEntities;
+		List<T> entityList = getSession().createQuery(criteria).getResultList();
+		return entityList;
 	}
 
 	@Override
-	public T get(Serializable id) {
-		return getSession().get(type, id);
-	}
-
-	@Override
-	public Serializable add(T entity) {
-		Integer id = (Integer) getSession().save(entity);
-		return id;
-	}
-
-	@Override
-	public void update(T entity) {
+	public T makePersistent(T entity) {
 		getSession().saveOrUpdate(entity);
+		return entity;
 	}
 
 	@Override
-	public void delete(T entity) {
+	public void makeTransient(T entity) {
 		getSession().remove(entity);
 	}
 
 	@Override
-	public void deleteById(K id) {
-		T entity = getSession().find(type, id);
-		if (null != entity) {
-			delete(entity);
+	public T findById(PK id, boolean lock) {
+		T entity;
+		if (lock) {
+			entity = getSession().load(getPersistentClass(), id, LockOptions.UPGRADE);
+		} else {
+			entity = getSession().load(getPersistentClass(), id);
+		}
+		return entity;
+	}
+	
+	public void flush() {
+		getSession().flush();
+	}
+	
+	public void clear() {
+		getSession().clear();
+	}
+
+	@Override
+	public void addList(List<T> entities) {
+		for (T entity : entities) {
+			this.makePersistent(entity);
 		}
 	}
 

@@ -55,20 +55,6 @@
 		on top of the class and have its package scanned by spring by using context:component-scan 
 		tag in spring.xml -->
 
-	<bean id="employeeDao"
-		class="com.karthik.data.hibernate.dao.impl.EmployeeDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
-	<bean id="departmentDao"
-		class="com.karthik.data.hibernate.dao.impl.DepartmentDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	<bean id="assetDao" class="com.karthik.data.hibernate.dao.impl.AssetDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-
 	<bean id="employeeService"
 		class="com.karthik.data.hibernate.service.impl.EmployeeServiceImpl">
 		<property name="employeeDao" ref="employeeDao" />
@@ -82,6 +68,51 @@
 	<bean id="assetService"
 		class="com.karthik.data.hibernate.service.impl.AssetServiceImpl">
 		<property name="assetDao" ref="assetDao" />
+	</bean>
+	
+	<bean id="genericDaoTarget" class="com.karthik.data.hibernate.dao.impl.GenericDaoImpl" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="genericDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true" />
+	
+	<bean id="employeeDao" parent="genericDao">
+		<property name="proxyInterfaces">
+			<value>com.karthik.data.hibernate.dao.EmployeeDao</value>
+		</property>
+		<property name="target">
+			<bean parent="genericDaoTarget">
+				<constructor-arg>
+					<value>com.karthik.data.hibernate.model.Employee</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="departmentDao" parent="genericDao">
+		<property name="proxyInterfaces">
+			<value>com.karthik.data.hibernate.dao.DepartmentDao</value>
+		</property>
+		<property name="target">
+			<bean parent="genericDaoTarget">
+				<constructor-arg>
+					<value>com.karthik.data.hibernate.model.Department</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="assetDao" parent="genericDao">
+		<property name="proxyInterfaces">
+			<value>com.karthik.data.hibernate.dao.AssetDao</value>
+		</property>
+		<property name="target">
+			<bean parent="genericDaoTarget">
+				<constructor-arg>
+					<value>com.karthik.data.hibernate.model.Asset</value>
+				</constructor-arg>
+			</bean>
+		</property>
 	</bean>
 
 </beans>

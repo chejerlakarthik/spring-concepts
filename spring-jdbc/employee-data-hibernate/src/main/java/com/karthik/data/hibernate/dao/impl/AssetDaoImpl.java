@@ -8,8 +8,8 @@ import com.karthik.data.hibernate.model.Asset;
 @Transactional
 public class AssetDaoImpl extends GenericDaoImpl<Asset,Long> implements AssetDao {
 
-	public AssetDaoImpl() {
-		super(Asset.class);
+	public AssetDaoImpl(Class<Asset> persistentClass) {
+		super(persistentClass);
 	}
 
 }

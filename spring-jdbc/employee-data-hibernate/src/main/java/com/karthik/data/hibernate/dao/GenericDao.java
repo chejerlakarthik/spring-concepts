@@ -3,18 +3,16 @@ package com.karthik.data.hibernate.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericDao<T,K> {
+public interface GenericDao<T,PK extends Serializable> {
 	
-	List<T> getAll();
+	List<T> findAll();
 	
-	T get(Serializable id);
+	T findById(PK id, boolean lock);
 	
-	Serializable add(T entity);
+	T makePersistent(T entity);
 	
-	void update(T entity);
+	void makeTransient(T entity);
 	
-	void delete(T entity);
-	
-	void deleteById(K id);
+	void addList(List<T> departments);
 
 }

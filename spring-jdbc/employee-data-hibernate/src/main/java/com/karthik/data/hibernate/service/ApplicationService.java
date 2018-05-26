@@ -1,17 +1,18 @@
 package com.karthik.data.hibernate.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface ApplicationService<T,PK> {
+public interface ApplicationService<T,PK extends Serializable> {
 	
 	List<T> getAll();
 	
-	T get(Integer id);
+	T get(PK id);
 	
-	Integer add(T entity);
+	T add(T entity);
 	
 	void delete(T entity);
 	

@@ -24,7 +24,7 @@ public class Employee {
 	@Id
 	@Column(name="EMP_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer employeeId;
+	private Integer id;
 	
 	@Column(name="EMP_NAME")
 	private String employeeName;
@@ -48,17 +48,17 @@ public class Employee {
 	public Employee() {}
 
 	public Employee(Integer employeeId, String employeeName, Employer employer) {
-		this.employeeId = employeeId;
+		this.id = employeeId;
 		this.employeeName = employeeName;
 		this.employer = employer;
 	}
 
 	public Integer getEmployeeId() {
-		return employeeId;
+		return id;
 	}
 
 	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
+		this.id = employeeId;
 	}
 
 	public String getEmployeeName() {
@@ -117,7 +117,7 @@ public class Employee {
 	
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", employer=" + employer
+		return "Employee [employeeId=" + id + ", employeeName=" + employeeName + ", employer=" + employer
 				+ ", department=" + department + ", salary=" + salary + ", cubicle=" + cubicle + "]";
 	}
 

@@ -12,8 +12,8 @@ import com.karthik.data.hibernate.model.Employee;
 @Transactional
 public class EmployeeDaoImpl extends GenericDaoImpl<Employee, Integer> implements EmployeeDao{
 
-	public EmployeeDaoImpl() {
-		super(Employee.class);
+	public EmployeeDaoImpl(Class<Employee> persistentClass) {
+		super(persistentClass);
 	}
 
 	@Override
