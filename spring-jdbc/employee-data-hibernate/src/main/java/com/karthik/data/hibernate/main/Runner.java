@@ -1,5 +1,10 @@
 package com.karthik.data.hibernate.main;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,8 +16,10 @@ import com.karthik.data.hibernate.util.HelperUtil;
 
 public class Runner {
 	
+	static AbstractApplicationContext context;
+	
 	public static void main(String[] args) {
-		AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+		context = new ClassPathXmlApplicationContext("spring.xml");
 		context.registerShutdownHook();
 
 		EmployeeService employeeService = context.getBean(EmployeeService.class);
@@ -34,11 +41,14 @@ public class Runner {
 		
 		// 3. Get Employee
 		System.out.println("Get Employee");
-		Employee emp1 = employeeService.findByName("Aarthi");
-		System.out.println(emp1);
+		List<Employee> employees = employeeService.findByName("Aarthi");
+		System.out.println(employees);
+		
+		assertThat(employees.size()).isGreaterThan(0);
 		
 		// 4. Update Employee
 		System.out.println("Update Employee");
+		Employee emp1 = employees.get(0);
 		System.out.println("Salary before update: " + emp1.getSalary());
 		emp1.setSalary(150000.00);
 		employeeService.update(emp1);
@@ -58,12 +68,13 @@ public class Runner {
 		emp.setEmployeeName(employeeName);
 		emp.setEmployer(HelperUtil.randomEmployer());
 		emp.setSalary(HelperUtil.randomDouble());
-		emp.setDepartment(departmentService.findByName(HelperUtil.randomDepartmentName()));
+		emp.setDepartment(departmentService.findByName(HelperUtil.randomDepartmentName()).get(0));
 		emp.setCubicle(HelperUtil.randomLong());
 		Asset myAsset = new Asset();
 		emp.getAssets().add(myAsset);
 		myAsset.setEmployee(emp);
+		emp.setLastModified(new Date());
 		return emp;
 	}
-
+    
 }

@@ -5,14 +5,14 @@ import java.util.List;
 
 public interface GenericDao<T,PK extends Serializable> {
 	
-	List<T> findAll();
+	T read(PK id);
 	
-	T findById(PK id, boolean lock);
+	T create(T entity);
 	
-	T makePersistent(T entity);
+	void update(T entity);
 	
-	void makeTransient(T entity);
+	void delete(T entity);
 	
-	void addList(List<T> departments);
+	void createList(List<T> entities);
 
 }

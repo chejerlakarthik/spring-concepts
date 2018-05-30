@@ -29,42 +29,40 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public Department get(Integer id) {
-		return this.departmentDao.findById(id, true);
+		return this.departmentDao.read(id);
 	}
 
 	@Override
 	public Department add(Department entity) {
-		return this.departmentDao.makePersistent(entity);
+		return this.departmentDao.create(entity);
 	}
 
 	@Override
 	public void delete(Department entity) {
-		this.departmentDao.makeTransient(entity);
+		this.departmentDao.delete(entity);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		Department department = this.departmentDao.findById(id, true);
+		Department department = this.departmentDao.read(id);
 		if (!Objects.isNull(department)) {
-			this.departmentDao.makeTransient(department);
+			this.departmentDao.delete(department);
 		}
 	}
 
 	@Override
 	public void update(Department entity) {
-		this.departmentDao.makePersistent(entity);
-	}
-
-	@Override
-	public Department findByName(String employeeName) {
-		Department dept = new Department("HR", "Human Resources");
-		dept.setDepartmentId(1);
-		return dept;
+		this.departmentDao.update(entity);
 	}
 
 	@Override
 	public void addDepartments(List<Department> departments) {
-		this.departmentDao.addList(departments);
+		this.departmentDao.createList(departments);
+	}
+
+	@Override
+	public List<Department> findByName(String employeeName) {
+		return this.departmentDao.findByName(employeeName);
 	}
 
 }

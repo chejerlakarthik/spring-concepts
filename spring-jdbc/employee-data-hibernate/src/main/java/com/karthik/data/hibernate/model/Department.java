@@ -5,10 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
+@NamedQueries({@NamedQuery(name="Department.findAll", query="from Department"),
+			   @NamedQuery(name="Department.findByName", query="select d from Department d where d.departmentName = :d_name")})
 @Table(name = "DEPARTMENT", uniqueConstraints=@UniqueConstraint(name="uk_department_name", columnNames= {"DEPARTMENT_NAME"}))
 public class Department {
 

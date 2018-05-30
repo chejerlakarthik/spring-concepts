@@ -43,11 +43,9 @@
 		</property>
 	</bean>
 
-	<tx:annotation-driven
-		transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
@@ -55,26 +53,44 @@
 		on top of the class and have its package scanned by spring by using context:component-scan 
 		tag in spring.xml -->
 
-	<bean id="employeeService"
-		class="com.karthik.data.hibernate.service.impl.EmployeeServiceImpl">
+	<bean id="employeeService" class="com.karthik.data.hibernate.service.impl.EmployeeServiceImpl">
 		<property name="employeeDao" ref="employeeDao" />
 	</bean>
 	
-	<bean id="departmentService"
-		class="com.karthik.data.hibernate.service.impl.DepartmentServiceImpl">
+	<bean id="departmentService" class="com.karthik.data.hibernate.service.impl.DepartmentServiceImpl">
 		<property name="departmentDao" ref="departmentDao" />
 	</bean>
 	
-	<bean id="assetService"
-		class="com.karthik.data.hibernate.service.impl.AssetServiceImpl">
+	<bean id="assetService" class="com.karthik.data.hibernate.service.impl.AssetServiceImpl">
 		<property name="assetDao" ref="assetDao" />
 	</bean>
 	
+	<bean id="namingStrategy"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField">
+            <value>org.hibernate.cfg.ImprovedNamingStrategy.INSTANCE</value>
+        </property>
+    </bean>
+
+    <bean id="extendedFinderNamingStrategy"
+        class="com.karthik.data.hibernate.finder.impl.ExtendedFinderNamingStrategy" />
+        
+	<bean id="finderIntroductionAdvisor" class="com.karthik.data.hibernate.finder.impl.FinderIntroductionAdvisor" />
+	
 	<bean id="genericDaoTarget" class="com.karthik.data.hibernate.dao.impl.GenericDaoImpl" abstract="true">
 		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="namingStrategy">
+            <ref bean="extendedFinderNamingStrategy" />
+        </property>
 	</bean>
 	
-	<bean id="genericDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true" />
+	<bean id="genericDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true" >
+		<property name="interceptorNames">
+            <list>
+                <value>finderIntroductionAdvisor</value>
+            </list>
+        </property>
+	</bean>
 	
 	<bean id="employeeDao" parent="genericDao">
 		<property name="proxyInterfaces">

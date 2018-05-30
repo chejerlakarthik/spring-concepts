@@ -20,41 +20,41 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public List<Employee> getAll() {
-		return this.employeeDao.findAll();
-	}
-
-	@Override
 	public Employee get(Integer employeeId) {
-		return this.employeeDao.findById(employeeId, true);
+		return this.employeeDao.read(employeeId);
 	}
 
 	@Override
 	public Employee add(Employee employee) {
-		return this.employeeDao.makePersistent(employee);
+		return this.employeeDao.create(employee);
 	}
 
 	@Override
 	public void update(Employee employee) {
-		this.employeeDao.makePersistent(employee);
+		this.employeeDao.update(employee);
 	}
 
 	@Override
 	public void deleteById(Integer employeeId) {
-		Employee employee = this.employeeDao.findById(employeeId, true);
+		Employee employee = this.employeeDao.read(employeeId);
 		if (!Objects.isNull(employee)) {
-			this.employeeDao.makeTransient(employee);
+			this.employeeDao.delete(employee);
 		}
 	}
 
 	@Override
 	public void delete(Employee entity) {
-		this.employeeDao.makeTransient(entity);
+		this.employeeDao.delete(entity);
 	}
 
 	@Override
-	public Employee findByName(String employeeName) {
+	public List<Employee> findByName(String employeeName) {
 		return this.employeeDao.findByName(employeeName);
+	}
+
+	@Override
+	public List<Employee> getAll() {
+		return this.employeeDao.findAll();
 	}
 
 }

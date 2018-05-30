@@ -9,7 +9,7 @@ import com.karthik.data.hibernate.model.Department;
 @Transactional
 public interface DepartmentService extends ApplicationService<Department,Integer>{
 	
-	Department findByName(String employeeName);
+	List<Department> findByName(String employeeName);
 	
 	void addDepartments(List<Department> departments);
 

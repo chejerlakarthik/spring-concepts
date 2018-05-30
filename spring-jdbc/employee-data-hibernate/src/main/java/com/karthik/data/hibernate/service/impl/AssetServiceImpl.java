@@ -20,36 +20,36 @@ public class AssetServiceImpl implements AssetService {
 	}
 
 	@Override
-	public List<Asset> getAll() {
-		return this.assetDao.findAll();
-	}
-
-	@Override
 	public Asset get(Long id) {
-		return this.assetDao.findById(id, true);
+		return this.assetDao.read(id);
 	}
 
 	@Override
 	public Asset add(Asset entity) {
-		return this.assetDao.makePersistent(entity);
+		return this.assetDao.create(entity);
 	}
 
 	@Override
 	public void delete(Asset entity) {
-		this.assetDao.makeTransient(entity);
+		this.assetDao.delete(entity);
 	}
 
 	@Override
 	public void update(Asset entity) {
-		this.assetDao.makePersistent(entity);
+		this.assetDao.update(entity);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		Asset asset = this.assetDao.findById(id, true);
+		Asset asset = this.assetDao.read(id);
 		if (!Objects.isNull(asset)) {
-			this.assetDao.makeTransient(asset);
+			this.assetDao.delete(asset);
 		}
+	}
+
+	@Override
+	public List<Asset> getAll() {
+		return this.assetDao.findAll();
 	}
 
 }
