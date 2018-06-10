@@ -3,9 +3,6 @@ package com.karthik.data.hibernate.dao.impl;
 import java.util.List;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,10 +55,20 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee, Integer> implement
 
 	@Override
 	public Employee findById(Integer id) {
-		Query query = getSession().getNamedQuery("Employee.findByName");
+		Query query = getSession().getNamedQuery("Employee.findById");
 		query.setParameter("e_id", id);
 		Employee employee = (Employee) query.getSingleResult();
 		return employee;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Employee> findBySalaryGreaterThanInDepartment(String departmentName, Double salary) {
+		Query query = getSession().getNamedQuery("Employee.findBySalaryGreaterThanInDepartment");
+		query.setParameter("e_salary", salary);
+		query.setParameter("d_name", departmentName);
+		List<Employee> employees = query.getResultList();
+		return employees;
 	}
 
 }

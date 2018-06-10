@@ -22,8 +22,8 @@ public class Runner {
 		context = new ClassPathXmlApplicationContext("spring.xml");
 		context.registerShutdownHook();
 
-		EmployeeService employeeService = context.getBean(EmployeeService.class);
-		DepartmentService departmentService = context.getBean(DepartmentService.class);
+		EmployeeService employeeService = (EmployeeService) context.getBean("employeeService");
+		/*DepartmentService departmentService = context.getBean(DepartmentService.class);
 		
 		departmentService.addDepartments(HelperUtil.listDepartments());
 		
@@ -31,7 +31,7 @@ public class Runner {
 		System.out.println("Adding Employees");
 		for (String empName : HelperUtil.listEmployeeNames()) {
 			employeeService.add(newEmployee(empName, departmentService));
-		}
+		}*/
 		
 		System.out.println("Get All Employees");
 		// 2. Get All Employees
@@ -60,6 +60,11 @@ public class Runner {
 		employeeService.deleteById(2);
 		System.out.println("# of employees after delete: " + employeeService.getAll().size());
 
+		
+		// 6. Employees with salary > 6000.00 and Department name = "IT"
+		List<Employee> emps = employeeService.findBySalaryGreaterThanInDepartment(6000.00, "IT");
+		System.out.println(emps.size());
+		
 		context.close();
 	}
 

@@ -57,4 +57,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return this.employeeDao.findAll();
 	}
 
+	@Override
+	public List<Employee> findBySalaryGreaterThanInDepartment(Double salary, String departmentName) {
+		return this.employeeDao.findBySalaryGreaterThanInDepartment(departmentName, salary);
+	}
+
 }

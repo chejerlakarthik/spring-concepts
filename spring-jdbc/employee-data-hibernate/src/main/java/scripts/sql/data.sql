@@ -1,3 +1,4 @@
+delete from dbo.assets;
 delete from dbo.employee;
 delete from dbo.department;
 

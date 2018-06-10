@@ -25,7 +25,8 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @NamedQueries({ @NamedQuery(name = "Employee.findAll", query = "from Employee"),
 				@NamedQuery(name = "Employee.findById", query = "from Employee e where e.id = :e_id"),
-				@NamedQuery(name = "Employee.findByName", query = "from Employee e where e.employeeName = :e_name") })
+				@NamedQuery(name = "Employee.findByName", query = "from Employee e where e.employeeName = :e_name"),
+				@NamedQuery(name = "Employee.findBySalaryGreaterThanInDepartment", query = "from Employee e, Department d where e.salary > :e_salary and d.departmentName = :d_name")})
 @Table(name = "EMPLOYEE", uniqueConstraints={@UniqueConstraint(name = "uk_cubicle", columnNames = { "CUBICLE_ID" })})
 public class Employee {
 

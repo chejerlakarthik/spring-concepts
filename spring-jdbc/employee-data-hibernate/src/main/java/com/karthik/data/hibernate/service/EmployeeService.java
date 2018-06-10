@@ -10,5 +10,7 @@ import com.karthik.data.hibernate.model.Employee;
 public interface EmployeeService extends ApplicationService<Employee,Integer>{
 	
 	List<Employee> findByName(String employeeName);
+	
+	List<Employee> findBySalaryGreaterThanInDepartment(Double salary, String departmentName);
 
 }
